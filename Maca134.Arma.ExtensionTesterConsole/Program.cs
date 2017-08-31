@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Maca134.Arma.ExtensionTesterConsole
 {
@@ -10,9 +11,12 @@ namespace Maca134.Arma.ExtensionTesterConsole
             if (args.Length == 0)
             {
                 Console.WriteLine("must call with a path to the dll");
+                Thread.Sleep(4000);
                 Environment.Exit(1);
                 return;
             }
+            Console.WriteLine(args[0]);
+            Console.WriteLine(Environment.CurrentDirectory);
             ArmaDll dll;
             try
             {
@@ -21,6 +25,7 @@ namespace Maca134.Arma.ExtensionTesterConsole
             catch (Exception ex)
             {
                 Console.WriteLine($"Error loading dll: {ex.Message}");
+                Thread.Sleep(4000);
                 Environment.Exit(2);
                 return;
             }
@@ -42,7 +47,7 @@ namespace Maca134.Arma.ExtensionTesterConsole
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error calling dll: {ex.Message}");
+                    Console.WriteLine($"Error calling dll: {ex.Message} -> {ex.InnerException?.Message}");
                 }
                 watch.Stop();
                 Console.WriteLine(result == string.Empty ? $"{watch.ElapsedMilliseconds}ms" : $"{result} ({watch.ElapsedMilliseconds}ms)");
