@@ -15,6 +15,6 @@ using System.Reflection;
 [assembly: AssemblyCompanyAttribute("Maca134")]
 [assembly: AssemblyProductAttribute("Maca134.Arma.ExtensionTesterConsole")]
 [assembly: AssemblyCopyrightAttribute("Copyright 2017")]
-[assembly: AssemblyVersionAttribute("0.0.0.1")]
-[assembly: AssemblyFileVersionAttribute("0.0.0.1")]
+[assembly: AssemblyVersionAttribute("0.0.0.2")]
+[assembly: AssemblyFileVersionAttribute("0.0.0.2")]
 
