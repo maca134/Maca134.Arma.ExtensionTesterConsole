@@ -1,26 +1,39 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Maca134.Arma.ExtensionTesterConsole
 {
     internal class Program
     {
+        [STAThread]
         internal static void Main(string[] args)
         {
+            string dllPath = null;
             if (args.Length == 0)
             {
-                Console.WriteLine("must call with a path to the dll");
-                Thread.Sleep(4000);
-                Environment.Exit(1);
-                return;
+                var openFileDialog = new OpenFileDialog
+                {
+                    Filter = "Dll File|*.dll"
+                };
+                if (openFileDialog.ShowDialog() != DialogResult.OK)
+                {
+                    Console.WriteLine("no dll selected");
+                    Thread.Sleep(4000);
+                    Environment.Exit(1);
+                    return;
+                }
+                dllPath = openFileDialog.FileName;
             }
-            Console.WriteLine(args[0]);
-            Console.WriteLine(Environment.CurrentDirectory);
+            else
+            {
+                dllPath = args[0];
+            }
             ArmaDll dll;
             try
             {
-                dll = new ArmaDll(args[0]);
+                dll = new ArmaDll(dllPath);
             }
             catch (Exception ex)
             {
@@ -29,7 +42,7 @@ namespace Maca134.Arma.ExtensionTesterConsole
                 Environment.Exit(2);
                 return;
             }
-            Console.WriteLine($"{args[0]} loaded");
+            Console.WriteLine($"{dllPath} loaded");
             Console.WriteLine("Type 'exit' to quit");
             Console.WriteLine();
 
